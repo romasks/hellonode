@@ -6,3 +6,5 @@ It includes a `Dockerfile` for building a Docker image with the application, and
 https://getintodevops.com
 
 Hello world!
+
+Let's go!
