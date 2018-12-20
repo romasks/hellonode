@@ -1,6 +1,13 @@
 node {
     def app
 
+    environment {
+        DOCKER_IMAGE = "romasks/hellonode"
+
+        REGISTRY_ADDRESS = "registry.heroku.com"
+        REGISTRY_AUTH = credentials("docker-registry")
+    }
+
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
 
@@ -11,7 +18,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("romasks/hellonode")
+        app = docker.build(env.DOCKER_IMAGE)
     }
 
     stage('Test image') {
@@ -35,8 +42,9 @@ node {
     }
 
     stage('Deploy image') {
-        sh 'docker tag romasks/hellonode registry.heroku.com/hellonode/web'
-        sh 'docker push registry.heroku.com/hellonode/web'
+        sh "docker login -u=$REGISTRY_AUTH_USR -p=$REGISTRY_AUTH_PSW ${env.REGISTRY_ADDRESS}"
+        sh "docker tag ${env.DOCKER_IMAGE} ${env.REGISTRY_ADDRESS}/hellonode/web"
+        sh "docker push ${env.REGISTRY_ADDRESS}/hellonode/web"
     }
 
     stage('Run image') {
