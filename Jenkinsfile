@@ -35,7 +35,7 @@ node {
     }
 
     stage('Deploy image') {
-        sh 'docker tag https://hub.docker.com/r/romasks/hellonode:latest registry.heroku.com/hellonode/web'
+        sh 'docker tag romasks/hellonode registry.heroku.com/hellonode/web'
         sh 'docker push registry.heroku.com/hellonode/web'
     }
 
