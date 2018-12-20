@@ -34,7 +34,12 @@ node {
         }
     }
 
+    stage('Deploy image') {
+        sh 'docker tag https://hub.docker.com/r/romasks/hellonode:latest registry.heroku.com/hellonode/web'
+        sh 'docker push registry.heroku.com/hellonode/web'
+    }
+
     stage('Run image') {
-        sh 'docker run -d -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -p 8080:8080 romasks/hellonode'
+        sh 'heroku open'
     }
 }
