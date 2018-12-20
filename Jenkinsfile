@@ -35,13 +35,9 @@ node {
     }
 
     stage('Deploy image') {
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'heroku-registry',
-usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-            /*sh "heroku container:login -u=$USERNAME -p=$PASSWORD registry.heroku.com"*/
-            sh "heroku container:login"
-            sh "docker tag romasks/hellonode registry.heroku.com/hellonode/web"
-            sh "docker push registry.heroku.com/hellonode/web"
-        }
+        sh "heroku container:login"
+        sh "docker tag romasks/hellonode registry.heroku.com/hellonode/web"
+        sh "docker push registry.heroku.com/hellonode/web"
     }
 
     stage('Run image') {
