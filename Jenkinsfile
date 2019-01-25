@@ -35,7 +35,9 @@ node {
     }
 
     stage('Deploy image') {
-        sh "heroku login"
+        sh "heroku login -i"
+        sh "lusersks@gmail.com"
+        sh "Qwerty_325"
         sh "heroku container:login"
         sh "docker tag romasks/hellonode registry.heroku.com/hellonode/web"
         sh "docker push registry.heroku.com/hellonode/web"
