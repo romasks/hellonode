@@ -38,7 +38,7 @@ node {
         sh "heroku login -i"
         sh "lusersks@gmail.com"
         sh "Qwerty_325"
-        sh "heroku container:login"
+        sh "heroku container:login -i"
         sh "lusersks@gmail.com"
         sh "Qwerty_325"
         sh "docker tag romasks/hellonode registry.heroku.com/hellonode/web"
